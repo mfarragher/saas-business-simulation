@@ -39,7 +39,7 @@ def get_user_dataset(start_date, end_date, *,
     total_users = int(start_users + new_users_over_time)
 
     user_df = pd.DataFrame(columns=columns)
-    user_df['user_id'] = _get_user_id_values(total_users)  # not seeded
+    user_df['user_id'] = _get_uuid_values(total_users)  # not seeded
     user_df['age'] = _get_age_dist_values(total_users, seed=seed)
     user_df['country'] = _get_user_country_values(total_users, seed=seed)
     user_df = user_df.pipe(_fill_activation_dates,
@@ -58,10 +58,10 @@ def _get_new_user_counts_by_date(start_date, end_date, *,
     return users_by_date - users_by_date.shift(1)
 
 
-def _get_user_id_values(total_users):
-    user_ids = [str(uuid.uuid4())
-                for i in range(total_users)]
-    return user_ids
+def _get_uuid_values(n):
+    ids_list = [str(uuid.uuid4())
+                for i in range(n)]
+    return ids_list
 
 
 def _get_age_dist_values(total_users, *, seed=None):
