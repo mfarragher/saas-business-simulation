@@ -31,7 +31,7 @@ def _get_active_user_p_by_date(start_date, end_date, *, seed=None):
 
     DAU_p_draw = ((np.zeros(len(date_index))
                    + ACTIVE_P + steps.cumsum())
-                  .clip(0,1))
+                  .clip(0, 1))
     return pd.Series(DAU_p_draw, index=date_index)
 
 
@@ -72,8 +72,8 @@ def get_user_counts_by_date(start_date, end_date, *,
     steps = np.random.normal(dod_growth_rate, 0.0005,
                              size=len(date_index))
 
-    n_users_draw = ((np.zeros(len(date_index)) + start_users)
-                     * steps.cumprod()).astype(int)
+    n_users_draw = ((np.zeros(len(date_index)) + start_users) *
+                    steps.cumprod()).astype(int)
     return pd.Series(n_users_draw, index=date_index)
 
 
