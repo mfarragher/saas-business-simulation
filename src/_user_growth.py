@@ -74,7 +74,7 @@ def get_user_counts_by_date(start_date, end_date, *,
 
     n_users_draw = ((np.zeros(len(date_index)) + start_users) *
                     steps.cumprod()).astype(int)
-    return pd.Series(n_users_draw, index=date_index)
+    return pd.Series(n_users_draw, index=date_index, name='user_count')
 
 
 def get_active_user_counts_by_date(start_date, end_date, *,
@@ -105,4 +105,7 @@ def get_active_user_counts_by_date(start_date, end_date, *,
                                             approx_yoy_growth_rate=approx_yoy_growth_rate,
                                             start_users=start_users)
 
-    return (users_by_date * active_user_p_by_date).astype(int)
+    return ((users_by_date * active_user_p_by_date)
+            .astype(int)
+            .rename('dau_count')
+            )
