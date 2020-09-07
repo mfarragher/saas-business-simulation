@@ -110,6 +110,35 @@ def _fill_activation_dates(df, *, new_users_by_date, start_users, seed=None):
 def get_user_activity_dataset(start_date, end_date, *, users_df,
                               approx_yoy_growth_rate=3, start_users=10000,
                               seed=None):
+    """Get dataset of user activity information, e.g. session timestamps.
+    Pass in the user dataset as users_df and the arguments used to generate
+    that dataset (including the seed so that user counts align over time
+    for the data generation to work).
+
+    Given these parameters used to simulate the SaaS business:
+        - Date range
+        - approx_yoy_growth_rate of users (people who have signed up in total)
+        - start_users (number of users on start date)
+
+    With user activity dataset returned and users_df joined together, you
+    can calculate interesting product metrics such as active users over time,
+    user retention over time, etc.
+
+    Args:
+        start_date (str): Y-m-d date string for the start of the series.
+        end_date (str): Y-m-d date string for the end of the series.
+        users_df (pd.DataFrame): user data to utilise in the data
+            generation process for this 'activity' dataset.
+        approx_yoy_growth_rate (int, optional): YoY growth rate for the
+            user count (>=1), e.g. 2 for +100%, 3 for +200%. Defaults to 3.
+        start_users (int, optional): Number of users at the start date.
+            Defaults to 10000.
+        seed (int): Random seed.  This should be the same as the seed used
+            to generate users_df.
+
+    Returns:
+        pd.DataFrame
+    """
     active_user_counts = get_active_user_counts_by_date(
         start_date, end_date,
         approx_yoy_growth_rate=approx_yoy_growth_rate,
