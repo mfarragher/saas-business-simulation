@@ -107,10 +107,11 @@ def _fill_activation_dates(df, *, new_users_by_date, start_users, seed=None):
     return df.assign(activation_date=lambda x: date_values)
 
 
-def get_user_activity_dataset(start_date, end_date, *, users_df,
-                              approx_yoy_growth_rate=3, start_users=10000,
-                              seed=None):
-    """Get dataset of user activity information, e.g. session timestamps.
+def get_session_dataset(start_date, end_date, *, users_df,
+                        approx_yoy_growth_rate=3, start_users=10000,
+                        seed=None):
+    """Get dataset of session activity, e.g. session timestamps, indexed
+    by session_id.
     Pass in the user dataset as users_df and the arguments used to generate
     that dataset (including the seed so that user counts align over time
     for the data generation to work).
@@ -120,7 +121,7 @@ def get_user_activity_dataset(start_date, end_date, *, users_df,
         - approx_yoy_growth_rate of users (people who have signed up in total)
         - start_users (number of users on start date)
 
-    With user activity dataset returned and users_df joined together, you
+    With the session dataset returned and users_df joined together, you
     can calculate interesting product metrics such as active users over time,
     user retention over time, etc.
 
@@ -128,7 +129,7 @@ def get_user_activity_dataset(start_date, end_date, *, users_df,
         start_date (str): Y-m-d date string for the start of the series.
         end_date (str): Y-m-d date string for the end of the series.
         users_df (pd.DataFrame): user data to utilise in the data
-            generation process for this 'activity' dataset.
+            generation process for this session-level dataset.
         approx_yoy_growth_rate (int, optional): YoY growth rate for the
             user count (>=1), e.g. 2 for +100%, 3 for +200%. Defaults to 3.
         start_users (int, optional): Number of users at the start date.
