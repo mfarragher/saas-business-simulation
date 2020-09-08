@@ -5,6 +5,8 @@ This project is a **simulator for SaaS product metrics** (e.g. user growth and f
 
 The aim for this project is to simulate high-level SaaS metrics and demonstrate key SaaS concepts via synthetic data generated via Python.  It has _no practical use_ for causal inference or predictive modelling, from how the high-level parameters drive the data generation.
 
+![User growth and retention](img/user-growth-and-retention-simulation.png)
+
 This project is a work in progress:
 - `src`: functions for generating synthetic data are stored here (available for import).
 - `notebooks`: demo analytics on the SaaS simulations.
